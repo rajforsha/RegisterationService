@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
 import com.tesco.rs.domain.Registeration;
@@ -30,29 +31,31 @@ import com.wordnik.swagger.annotations.ApiResponses;
  *
  */
 @Path("/v1/registeration")
-@Api(value = "/registeration", description = "registeration operations")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Api(value = "registeration", description = "registeration operations")
 public class RegisterationResource extends AbstractResource<Registeration, RegisterationDto> {
 
 	@Inject
 	private RegisterationService registerationService;
 
 	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get registeredUser by id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
-	public Response getUsers(@QueryParam(value = "name") String name)
+	public Response getUsers(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
-		return Response.ok().status(200).build();
+		return Response.ok(registerationService.findOne(id, getDomainType())).status(200).build();
 	}
 
 	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get registeredUser by id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
-	public Response createRegisteration(@ApiParam Registeration object) {
-		return Response.ok().status(201).build();
+	public Response createRegisteration(@ApiParam Registeration object) throws JsonProcessingException, IOException {
+		return Response.ok(registerationService.create(object, getDomainType())).status(201).build();
 	}
 
 	@Override
