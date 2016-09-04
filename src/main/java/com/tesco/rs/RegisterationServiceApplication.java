@@ -2,6 +2,8 @@ package com.tesco.rs;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.tesco.rs.couchbase.CouchbaseResource;
+import com.tesco.rs.domain.CouchbaseConfiguration;
 import com.tesco.rs.domain.RegisterationServiceConfiguration;
 import com.tesco.rs.resource.RegisterationResource;
 
@@ -26,6 +28,7 @@ public class RegisterationServiceApplication extends Application<RegisterationSe
 		Injector injector = Guice.createInjector(new com.tesco.rs.util.Binder());
 		RegisterationResource resource = injector.getInstance(RegisterationResource.class);
 		environment.jersey().register(resource);
+		createCouchbaseConnection(config.getConfig());
 	}
 
 	@Override
@@ -38,6 +41,10 @@ public class RegisterationServiceApplication extends Application<RegisterationSe
 				return configuration.swaggerBundleConfiguration;
 			}
 		});
+	}
+
+	public void createCouchbaseConnection(CouchbaseConfiguration couchbaseConfiguration) {
+		CouchbaseResource.createConnection(couchbaseConfiguration);
 	}
 
 }

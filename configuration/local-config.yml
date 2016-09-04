@@ -1,0 +1,16 @@
+couchbase:
+    node: 
+    - http://127.0.0.1:8091/pools
+    bucket: default
+    password: Tesco@2016
+
+swagger:
+  resourcePackage: com.tesco.rs.resource
+
+server:
+  applicationConnectors:
+  - type: http 
+    port: 9080
+  adminConnectors:
+  - type: http
+    port: 9081
