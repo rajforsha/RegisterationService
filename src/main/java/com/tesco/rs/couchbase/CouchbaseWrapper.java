@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  *
  */
 public class CouchbaseWrapper {
-	public static boolean createDocument(String id, String result) {
+	public static Boolean createDocument(String id, String result) {
 		return CouchbaseResource.getClient().add(id, result) != null;
 	}
 

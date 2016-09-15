@@ -10,18 +10,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tesco.rs.constant.Domain;
 import com.tesco.rs.constant.RootIdConstant;
 import com.tesco.rs.couchbase.CouchbaseWrapper;
-import com.tesco.rs.service.RegisterationService;
+import com.tesco.rs.service.ProductLocationService;
 
 /**
  * @author vagrant
  *
  */
-public class RegisterationServiceImpl implements RegisterationService {
+public class ProductLocationServiceImpl implements ProductLocationService {
 	private ObjectMapper mapper;
-	@SuppressWarnings("unused")
-	private final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(RegisterationServiceImpl.class);
 
-	public RegisterationServiceImpl() {
+	public ProductLocationServiceImpl() {
 		this.mapper = new ObjectMapper();
 	}
 
@@ -29,7 +27,7 @@ public class RegisterationServiceImpl implements RegisterationService {
 	public Boolean create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
 		return CouchbaseWrapper
-				.createDocument(RootIdConstant.registerRootId + RootIdConstant.uid.randomUUID().toString(), result);
+				.createDocument(RootIdConstant.productRootID + RootIdConstant.uid.randomUUID().toString(), result);
 	}
 
 	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
@@ -38,22 +36,27 @@ public class RegisterationServiceImpl implements RegisterationService {
 	}
 
 	public List<Domain> findAll() throws JsonParseException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void update(Domain enity, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
 
 	}
 
 	public void delete(String id) throws JsonParseException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
 
 	}
 
 	public void afterCreate(Domain user) throws JsonParseException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
 
 	}
 
 	public void afterDelete(String id) throws JsonParseException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
 
 	}
 
