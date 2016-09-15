@@ -2,7 +2,6 @@ package com.tesco.rs.service.impl;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,10 +24,12 @@ public class DriverLocationServiceImpl implements DriverLocationService {
 		this.mapper = new ObjectMapper();
 	}
 
-	public Boolean create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public String create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
-		return CouchbaseWrapper.createDocument(RootIdConstant.driverRootId + UUID.randomUUID().toString(), result);
+		@SuppressWarnings("static-access")
+		String id = RootIdConstant.driverRootId + RootIdConstant.uid.randomUUID().toString();
+		return "UUID :" + id + "object created :" + CouchbaseWrapper.createDocument(id, result);
 	}
 
 	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {

@@ -26,10 +26,10 @@ public class RegisterationServiceImpl implements RegisterationService {
 	}
 
 	@SuppressWarnings("static-access")
-	public Boolean create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public String create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
-		return CouchbaseWrapper
-				.createDocument(RootIdConstant.registerRootId + RootIdConstant.uid.randomUUID().toString(), result);
+		String id = RootIdConstant.registerRootId + RootIdConstant.uid.randomUUID().toString();
+		return "UUID :" + id + "object created :" + CouchbaseWrapper.createDocument(id, result);
 	}
 
 	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {

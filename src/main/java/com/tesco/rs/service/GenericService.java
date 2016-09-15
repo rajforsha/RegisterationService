@@ -14,7 +14,7 @@ import com.tesco.rs.constant.Domain;
  */
 public interface GenericService {
 
-	public Boolean create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
+	public String create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
 
 	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 

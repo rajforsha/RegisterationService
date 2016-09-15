@@ -24,10 +24,10 @@ public class ProductLocationServiceImpl implements ProductLocationService {
 	}
 
 	@SuppressWarnings("static-access")
-	public Boolean create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public String create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
-		return CouchbaseWrapper
-				.createDocument(RootIdConstant.productRootID + RootIdConstant.uid.randomUUID().toString(), result);
+		String id = RootIdConstant.productRootID + RootIdConstant.uid.randomUUID().toString();
+		return "UUID :" + id + "object created :" + CouchbaseWrapper.createDocument(id, result);
 	}
 
 	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
