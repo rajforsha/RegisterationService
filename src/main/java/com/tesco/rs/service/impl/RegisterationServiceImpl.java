@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tesco.rs.constant.Domain;
 import com.tesco.rs.constant.RootIdConstant;
 import com.tesco.rs.couchbase.CouchbaseWrapper;
+import com.tesco.rs.dto.ResponseDto;
 import com.tesco.rs.service.RegisterationService;
 
 /**
@@ -26,10 +27,13 @@ public class RegisterationServiceImpl implements RegisterationService {
 	}
 
 	@SuppressWarnings("static-access")
-	public String create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public ResponseDto create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
 		String id = RootIdConstant.registerRootId + RootIdConstant.uid.randomUUID().toString();
-		return "UUID :" + id + "object created :" + CouchbaseWrapper.createDocument(id, result);
+		CouchbaseWrapper.createDocument(id, result);
+		ResponseDto rDto = new ResponseDto();
+		rDto.setId(id);
+		return rDto;
 	}
 
 	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
