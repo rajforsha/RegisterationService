@@ -1,14 +1,13 @@
 package com.tesco.rs.service.impl;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tesco.rs.constant.Domain;
-import com.tesco.rs.constant.RootIdConstant;
 import com.tesco.rs.couchbase.CouchbaseWrapper;
 import com.tesco.rs.dto.ResponseDto;
 import com.tesco.rs.service.DestinationLocationService;
@@ -27,20 +26,20 @@ public class DestinationLocationServiceImpl implements DestinationLocationServic
 
 	public ResponseDto create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
-		@SuppressWarnings("static-access")
-		String id = RootIdConstant.destinationRootId + RootIdConstant.uid.randomUUID().toString();
-		CouchbaseWrapper.createDocument(id, result);
+		CouchbaseWrapper.createDocument(entity.getId(), result);
 		ResponseDto rDto = new ResponseDto();
-		rDto.setId(id);
+		rDto.setContent(Arrays.asList(entity.getId()));
 		return rDto;
 	}
 
-	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
+	public ResponseDto findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
 		Object obj = CouchbaseWrapper.getDocument(id);
-		return (Domain) mapper.readValue(String.valueOf(obj), cls);
+		ResponseDto rDto = new ResponseDto<>();
+		rDto.setContent(Arrays.asList((Domain) mapper.readValue(String.valueOf(obj), cls)));
+		return rDto;
 	}
 
-	public List<Domain> findAll() throws JsonParseException, JsonMappingException, IOException {
+	public ResponseDto findAll() throws JsonParseException, JsonMappingException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

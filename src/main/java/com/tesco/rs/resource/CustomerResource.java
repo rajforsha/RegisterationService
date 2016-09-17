@@ -16,10 +16,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
 import com.tesco.rs.constant.RootIdConstant;
-import com.tesco.rs.domain.Registeration;
-import com.tesco.rs.dto.RegisterationDto;
+import com.tesco.rs.domain.Customer;
+import com.tesco.rs.dto.CustomerDto;
+import com.tesco.rs.service.CustomerService;
 import com.tesco.rs.service.GenericService;
-import com.tesco.rs.service.RegisterationService;
 import com.tesco.rs.util.AbstractResource;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -31,12 +31,12 @@ import com.wordnik.swagger.annotations.ApiResponses;
  * @author vagrant
  *
  */
-@Path("/v1/registeration")
-@Api(value = "registeration", description = "registeration operations")
-public class RegisterationResource extends AbstractResource<Registeration, RegisterationDto> {
+@Path("/v1/customers")
+@Api(value = "customers", description = "product operations")
+public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 
 	@Inject
-	private RegisterationService registerationService;
+	private CustomerService customerService;
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -44,9 +44,13 @@ public class RegisterationResource extends AbstractResource<Registeration, Regis
 	@ApiOperation(value = "get registeredUser by id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
-	public Response getUsers(@QueryParam(value = "id") String id)
+	public Response getCustomer(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
-		return Response.ok(registerationService.findOne(id, getDomainType())).status(200).build();
+		if (id != null) {
+			return Response.ok(customerService.findOne(id, getDomainType())).status(200).build();
+		} else {
+			return Response.ok(customerService.findAll()).status(200).build();
+		}
 	}
 
 	@PUT
@@ -55,13 +59,13 @@ public class RegisterationResource extends AbstractResource<Registeration, Regis
 	@ApiOperation(value = "get registeredUser by id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
-	public Response createRegisteration(@ApiParam Registeration object) throws JsonProcessingException, IOException {
-		object.setId("registerationId:" + RootIdConstant.uid.randomUUID().toString());
-		return Response.ok(registerationService.create(object, getDomainType())).status(201).build();
+	public Response crateCustomer(@ApiParam Customer object) throws JsonProcessingException, IOException {
+		object.setId("customer:id:" + RootIdConstant.uid.randomUUID().toString());
+		return Response.ok(customerService.create(object, getDomainType())).status(201).build();
 	}
 
 	@Override
 	public GenericService getGenericService() {
-		return registerationService;
+		return customerService;
 	}
 }

@@ -1,36 +1,71 @@
 package com.tesco.rs.dto;
 
-/**
- * @author shashi
- *
- */
-public class ResponseDto {
+import java.util.List;
+import java.util.Set;
 
-	private String id;
+public class ResponseDto<T> {
+	private Integer total;
+	private Set<String> missingSet;
+	private List<T> content;
+	private Integer pageNumber;
+	private Integer pageSize;
+	private Integer totalElements;
+	private Integer totalPages;
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
+	public Integer getTotal() {
+		return total;
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "ResponseDto [id=" + id + "]";
+	public Set<String> getMissingSet() {
+		return missingSet;
+	}
+
+	public void setMissingSet(Set<String> missingSet) {
+		this.missingSet = missingSet;
+	}
+
+	public List<T> getContent() {
+		return content;
+	}
+
+	public void setContent(List<T> content) {
+		this.content = content;
+	}
+
+	public Integer getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getTotalElements() {
+		return totalElements;
+	}
+
+	public void setTotalElements(Integer totalElements) {
+		this.totalElements = totalElements;
+	}
+
+	public Integer getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
 	}
 
 }

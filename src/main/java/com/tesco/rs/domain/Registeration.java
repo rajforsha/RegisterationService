@@ -10,6 +10,7 @@ import com.tesco.rs.constant.Domain;
 public class Registeration implements Domain {
 
 	private static final long serialVersionUID = 1212069745626480714L;
+	private String id;
 	private String name;
 	@JsonProperty("address")
 	private Address address;
@@ -21,6 +22,14 @@ public class Registeration implements Domain {
 	private VehicleInfo vehicleInfo;
 	@JsonProperty("packageTypePreference")
 	private PackageTypePreference packageTypePreference;
+
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the name
@@ -122,6 +131,11 @@ public class Registeration implements Domain {
 		return "Registeration [name=" + name + ", address=" + address + ", bankAccountsDetails=" + bankAccountsDetails
 				+ ", kycDetails=" + kycDetails + ", vehicleInfo=" + vehicleInfo + ", packageTypePreference="
 				+ packageTypePreference + "]";
+	}
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

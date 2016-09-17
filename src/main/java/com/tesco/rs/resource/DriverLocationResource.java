@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
+import com.tesco.rs.constant.RootIdConstant;
 import com.tesco.rs.domain.DriverLocation;
 import com.tesco.rs.dto.DriverLocationDto;
 import com.tesco.rs.service.DriverLocationService;
@@ -60,6 +61,7 @@ public class DriverLocationResource extends AbstractResource<DriverLocation, Dri
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response createRegisteration(@ApiParam DriverLocation object) throws JsonProcessingException, IOException {
+		object.setId("customer:id:" + RootIdConstant.uid.randomUUID().toString());
 		return Response.ok(driverLocationService.create(object, getDomainType())).status(201).build();
 	}
 
