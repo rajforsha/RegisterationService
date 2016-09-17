@@ -23,9 +23,9 @@ public class Registeration implements Domain {
 	@JsonProperty("packageTypePreference")
 	private PackageTypePreference packageTypePreference;
 
-	
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -135,7 +135,7 @@ public class Registeration implements Domain {
 
 	public String getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 }

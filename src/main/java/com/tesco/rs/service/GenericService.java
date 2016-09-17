@@ -1,7 +1,6 @@
 package com.tesco.rs.service;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,11 +14,11 @@ import com.tesco.rs.dto.ResponseDto;
  */
 public interface GenericService {
 
-	public ResponseDto create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
+	public ResponseDto<?> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
 
-	public ResponseDto findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
+	public ResponseDto<?> findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 
-	public ResponseDto findAll() throws JsonParseException, JsonMappingException, IOException;
+	public ResponseDto<?> findAll() throws JsonParseException, JsonMappingException, IOException;
 
 	public void update(Domain enity, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 

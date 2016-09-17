@@ -23,7 +23,6 @@ import com.tesco.rs.service.ProductService;
  */
 public class ProductServiceImpl implements ProductService {
 	private ObjectMapper mapper;
-	@SuppressWarnings("unused")
 	private final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(ProductServiceImpl.class);
 
 	public ProductServiceImpl() {
@@ -32,10 +31,9 @@ public class ProductServiceImpl implements ProductService {
 
 	private static String PRODUCT_ROOT = "product:root";
 
-	@SuppressWarnings("static-access")
-	public ResponseDto create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public ResponseDto<String> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 
-		Boolean output = CouchbaseWrapper.createDocument(entity.getId(),
+		CouchbaseWrapper.createDocument(entity.getId(),
 				mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity));
 
 		Object object = CouchbaseWrapper.getDocument(PRODUCT_ROOT);
@@ -64,21 +62,22 @@ public class ProductServiceImpl implements ProductService {
 				logger.info("Product Root Lookup Updated Status:" + lookupCreatedOutput1);
 			}
 		}
-		ResponseDto rDto = new ResponseDto();
+		ResponseDto<String> rDto = new ResponseDto<String>();
 		rDto.setContent(Arrays.asList(entity.getId()));
 		return rDto;
 	}
 
-	public ResponseDto findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
+	public ResponseDto<Product> findOne(String id, Class<?> cls)
+			throws JsonParseException, JsonMappingException, IOException {
 		Object obj = CouchbaseWrapper.getDocument(id);
-		ResponseDto rDto = new ResponseDto<>();
-		rDto.setContent(Arrays.asList((Domain) mapper.readValue(String.valueOf(obj), cls)));
+		ResponseDto<Product> rDto = new ResponseDto<Product>();
+		rDto.setContent(Arrays.asList((Product) mapper.readValue(String.valueOf(obj), cls)));
 		return rDto;
 	}
 
 	@Override
-	public ResponseDto findAll() throws JsonParseException, JsonMappingException, IOException {
-		List<Domain> response = new ArrayList<>();
+	public ResponseDto<Product> findAll() throws JsonParseException, JsonMappingException, IOException {
+		List<Product> response = new ArrayList<Product>();
 		Object obj = CouchbaseWrapper.getDocument(PRODUCT_ROOT);
 		LookupDomain lookup = (LookupDomain) mapper.readValue(String.valueOf(obj), LookupDomain.class);
 
@@ -86,14 +85,14 @@ public class ProductServiceImpl implements ProductService {
 
 		childObjs.values().stream().forEach(p -> {
 			try {
-				response.add((Domain) mapper.readValue(String.valueOf(p), Product.class));
+				response.add((Product) mapper.readValue(String.valueOf(p), Product.class));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 
-		ResponseDto rDto = new ResponseDto<>();
+		ResponseDto<Product> rDto = new ResponseDto<Product>();
 		rDto.setContent(response);
 		return rDto;
 	}

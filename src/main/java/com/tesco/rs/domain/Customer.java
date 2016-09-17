@@ -3,40 +3,33 @@ package com.tesco.rs.domain;
 import com.tesco.rs.constant.Domain;
 
 public class Customer implements Domain {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3232122888111372081L;
 	public String id;
 	public String customerName;
 	public Address customerAddress;
 
-	
 	public void setId(String id) {
 		this.id = id;
 	}
-
-
 
 	public String getCustomerName() {
 		return customerName;
 	}
 
-
-
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-
-
 
 	public Address getCustomerAddress() {
 		return customerAddress;
 	}
 
-
-
 	public void setCustomerAddress(Address customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-
-
 
 	public static class Address {
 		public String addressLine1;
@@ -104,8 +97,6 @@ public class Customer implements Domain {
 		}
 
 	}
-
-
 
 	public String getId() {
 		// TODO Auto-generated method stub

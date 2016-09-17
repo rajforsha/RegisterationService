@@ -15,7 +15,6 @@ import com.tesco.rs.couchbase.CouchbaseWrapper;
 import com.tesco.rs.domain.LookupDomain;
 import com.tesco.rs.domain.SuperHero;
 import com.tesco.rs.dto.ResponseDto;
-import com.tesco.rs.dto.SuperHeroDto;
 import com.tesco.rs.service.SuperHeroService;
 
 /**
@@ -24,7 +23,6 @@ import com.tesco.rs.service.SuperHeroService;
  */
 public class SuperHeroServiceImpl implements SuperHeroService {
 	private ObjectMapper mapper;
-	@SuppressWarnings("unused")
 	private final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(SuperHeroServiceImpl.class);
 
 	public SuperHeroServiceImpl() {
@@ -33,10 +31,9 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 
 	private static String SUPER_HERO_ROOT = "super:hero:root";
 
-	@SuppressWarnings("static-access")
-	public ResponseDto<SuperHeroDto> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public ResponseDto<String> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 
-		Boolean output = CouchbaseWrapper.createDocument(entity.getId(),
+		CouchbaseWrapper.createDocument(entity.getId(),
 				mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity));
 
 		Object object = CouchbaseWrapper.getDocument(SUPER_HERO_ROOT);
@@ -64,21 +61,22 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 				logger.info("Product Root Lookup Updated Status:" + lookupCreatedOutput1);
 			}
 		}
-		ResponseDto rDto = new ResponseDto<>();
+		ResponseDto<String> rDto = new ResponseDto<String>();
 		rDto.setContent(Arrays.asList(entity.getId()));
 		return rDto;
 	}
 
-	public ResponseDto findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
+	public ResponseDto<SuperHero> findOne(String id, Class<?> cls)
+			throws JsonParseException, JsonMappingException, IOException {
 		Object obj = CouchbaseWrapper.getDocument(id);
-		ResponseDto rDto = new ResponseDto<>();
-		rDto.setContent(Arrays.asList((Domain) mapper.readValue(String.valueOf(obj), cls)));
+		ResponseDto<SuperHero> rDto = new ResponseDto<SuperHero>();
+		rDto.setContent(Arrays.asList((SuperHero) mapper.readValue(String.valueOf(obj), cls)));
 		return rDto;
 	}
 
 	@Override
-	public ResponseDto findAll() throws JsonParseException, JsonMappingException, IOException {
-		List<Domain> response = new ArrayList<Domain>();
+	public ResponseDto<SuperHero> findAll() throws JsonParseException, JsonMappingException, IOException {
+		List<SuperHero> response = new ArrayList<SuperHero>();
 		Object obj = CouchbaseWrapper.getDocument(SUPER_HERO_ROOT);
 		LookupDomain lookup = (LookupDomain) mapper.readValue(String.valueOf(obj), LookupDomain.class);
 
@@ -87,13 +85,13 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 		childObjs.values().stream().forEach(p -> {
 			try {
 
-				response.add((Domain) mapper.readValue(String.valueOf(p), SuperHero.class));
+				response.add((SuperHero) mapper.readValue(String.valueOf(p), SuperHero.class));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
-		ResponseDto rDto = new ResponseDto<>();
+		ResponseDto<SuperHero> rDto = new ResponseDto<>();
 		rDto.setContent(response);
 		return rDto;
 	}

@@ -17,9 +17,9 @@ public class DestinationLocation implements Domain {
 	private String longitude;
 	private String latitude;
 
-	
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -82,8 +82,7 @@ public class DestinationLocation implements Domain {
 	}
 
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 }

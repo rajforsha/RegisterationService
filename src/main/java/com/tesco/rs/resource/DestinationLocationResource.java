@@ -1,6 +1,7 @@
 package com.tesco.rs.resource;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,7 +18,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
-import com.tesco.rs.constant.RootIdConstant;
 import com.tesco.rs.domain.DestinationLocation;
 import com.tesco.rs.dto.DestinationLocationDto;
 import com.tesco.rs.service.DestinationLocationService;
@@ -67,7 +67,7 @@ public class DestinationLocationResource extends AbstractResource<DestinationLoc
 			@ApiResponse(code = 500, message = "server error") })
 	public Response createRegisteration(@ApiParam DestinationLocation object)
 			throws JsonProcessingException, IOException {
-		object.setId("customer:id:" + RootIdConstant.uid.randomUUID().toString());
+		object.setId("customer:id:" + UUID.randomUUID().toString());
 		return Response.ok(destinationLocationService.create(object, getDomainType())).status(201).build();
 	}
 
