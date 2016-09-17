@@ -17,9 +17,9 @@ public interface GenericService {
 
 	public ResponseDto create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
 
-	public Domain findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
+	public ResponseDto findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 
-	public List<Domain> findAll() throws JsonParseException, JsonMappingException, IOException;
+	public ResponseDto findAll() throws JsonParseException, JsonMappingException, IOException;
 
 	public void update(Domain enity, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 

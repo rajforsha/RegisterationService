@@ -12,9 +12,18 @@ public class DriverLocation implements Domain {
 	 * 
 	 */
 	private static final long serialVersionUID = -352257839219745122L;
+	private String id;
 	private String driverName;
 	private String longitude;
 	private String latitude;
+
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the driverName
@@ -69,6 +78,11 @@ public class DriverLocation implements Domain {
 	@Override
 	public String toString() {
 		return "DriverLocation [driverName=" + driverName + ", longitude=" + longitude + ", latitude=" + latitude + "]";
+	}
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

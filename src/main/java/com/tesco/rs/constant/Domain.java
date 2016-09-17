@@ -7,5 +7,5 @@ import java.io.Serializable;
  *
  */
 public interface Domain extends Serializable {
-
+	public String getId();
 }

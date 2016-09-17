@@ -12,9 +12,18 @@ public class DestinationLocation implements Domain {
 	 * 
 	 */
 	private static final long serialVersionUID = 7589227707301331785L;
+	private String id;
 	private String userName;
 	private String longitude;
 	private String latitude;
+
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the userName
@@ -70,6 +79,11 @@ public class DestinationLocation implements Domain {
 	public String toString() {
 		return "DestinationLocation [userName=" + userName + ", longitude=" + longitude + ", latitude=" + latitude
 				+ "]";
+	}
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
