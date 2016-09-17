@@ -10,6 +10,7 @@ import com.tesco.rs.couchbase.CouchbaseResource;
 import com.tesco.rs.domain.CouchbaseConfiguration;
 import com.tesco.rs.domain.RegisterationServiceConfiguration;
 import com.tesco.rs.filter.CorsFilter;
+import com.tesco.rs.healthcheck.CouchbaseHealthCheckUp;
 import com.tesco.rs.resource.DestinationLocationResource;
 import com.tesco.rs.resource.DriverLocationResource;
 import com.tesco.rs.resource.ProductLocationResource;
@@ -42,6 +43,8 @@ public class RegisterationServiceApplication extends Application<RegisterationSe
 		environment.jersey().register(productResource);
 		DestinationLocationResource destinationResource = injector.getInstance(DestinationLocationResource.class);
 		environment.jersey().register(destinationResource);
+		CouchbaseHealthCheckUp args = new CouchbaseHealthCheckUp();
+		environment.healthChecks().register("", args);
 		CorsFilter corsFilter = new CorsFilter();
 		environment.servlets().addFilter("corsFilter", corsFilter)
 				.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
