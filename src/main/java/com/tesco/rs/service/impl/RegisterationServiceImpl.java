@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tesco.rs.constant.Domain;
 import com.tesco.rs.couchbase.CouchbaseWrapper;
+import com.tesco.rs.domain.Registeration;
 import com.tesco.rs.dto.ResponseDto;
 import com.tesco.rs.service.RegisterationService;
 
@@ -25,23 +26,23 @@ public class RegisterationServiceImpl implements RegisterationService {
 		this.mapper = new ObjectMapper();
 	}
 
-	@SuppressWarnings("static-access")
-	public ResponseDto create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public ResponseDto<String> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
 		CouchbaseWrapper.createDocument(entity.getId(), result);
-		ResponseDto rDto = new ResponseDto();
+		ResponseDto<String> rDto = new ResponseDto<String>();
 		rDto.setContent(Arrays.asList(entity.getId()));
 		return rDto;
 	}
 
-	public ResponseDto findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
+	public ResponseDto<Registeration> findOne(String id, Class<?> cls)
+			throws JsonParseException, JsonMappingException, IOException {
 		Object obj = CouchbaseWrapper.getDocument(id);
-		ResponseDto rDto = new ResponseDto<>();
-		rDto.setContent(Arrays.asList((Domain) mapper.readValue(String.valueOf(obj), cls)));
+		ResponseDto<Registeration> rDto = new ResponseDto<Registeration>();
+		rDto.setContent(Arrays.asList((Registeration) mapper.readValue(String.valueOf(obj), cls)));
 		return rDto;
 	}
 
-	public ResponseDto findAll() throws JsonParseException, JsonMappingException, IOException {
+	public ResponseDto<Registeration> findAll() throws JsonParseException, JsonMappingException, IOException {
 		return null;
 	}
 

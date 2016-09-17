@@ -1,6 +1,7 @@
 package com.tesco.rs.resource;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,7 +16,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.inject.Inject;
-import com.tesco.rs.constant.RootIdConstant;
 import com.tesco.rs.domain.Customer;
 import com.tesco.rs.dto.CustomerDto;
 import com.tesco.rs.service.CustomerService;
@@ -60,7 +60,7 @@ public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response crateCustomer(@ApiParam Customer object) throws JsonProcessingException, IOException {
-		object.setId("customer:id:" + RootIdConstant.uid.randomUUID().toString());
+		object.setId("customer:id:" + UUID.randomUUID().toString());
 		return Response.ok(customerService.create(object, getDomainType())).status(201).build();
 	}
 

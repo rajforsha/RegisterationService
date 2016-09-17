@@ -3,6 +3,10 @@ package com.tesco.rs.dto;
 import com.tesco.rs.constant.Dto;
 
 public class CustomerDto implements Dto {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3671254639041731565L;
 	public String id;
 	public String customerName;
 	public Address customerAddress;
