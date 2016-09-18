@@ -3,6 +3,8 @@ package com.tesco.rs.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.tesco.rs.couchbase.CouchbaseWrapper;
+
 public interface CouchbaseRepository {
 
 	public Boolean createDocument(String id, String result);
@@ -16,4 +18,6 @@ public interface CouchbaseRepository {
 	public Boolean updateDocument(String id, String result);
 
 	public Boolean deleteDocument(String id);
+
+	public CouchbaseWrapper getCouchbaseWrapper();
 }
