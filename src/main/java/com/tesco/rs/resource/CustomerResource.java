@@ -48,9 +48,9 @@ public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 	public Response getCustomer(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
 		if (id != null) {
-			return Response.ok(customerService.findOne(id, getDomainType())).status(200).build();
+			return Response.ok(super.findOne(id)).status(200).build();
 		} else {
-			return Response.ok(customerService.findAll()).status(200).build();
+			return Response.ok(super.findAll()).status(200).build();
 		}
 	}
 
@@ -63,7 +63,7 @@ public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 	public Response crateCustomer(@ApiParam Customer object) throws JsonProcessingException, IOException {
 		String id = UUID.randomUUID().toString();
 		object.setId("customer:id:" + id);
-		customerService.create(object, getDomainType());
+		super.create(object);
 		return Response.ok().header("id", "customer:id:" + id).status(201).build();
 	}
 

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.tesco.rs.constant.Domain;
 import com.tesco.rs.constant.Dto;
+import com.tesco.rs.dto.ResponseDto;
 import com.tesco.rs.service.GenericService;
 
 /**
@@ -39,6 +40,14 @@ public abstract class AbstractResource<E extends Domain, D extends Dto> {
 
 	public void delete(String id) throws JsonParseException, JsonMappingException, IOException {
 		getGenericService().delete(id);
+	}
+
+	public ResponseDto<?> findOne(String id) throws JsonParseException, JsonMappingException, IOException {
+		return getGenericService().findOne(id, getDomainType());
+	}
+
+	public ResponseDto<?> findAll() throws JsonParseException, JsonMappingException, IOException {
+		return getGenericService().findAll(getDomainType());
 	}
 
 	public abstract GenericService getGenericService();

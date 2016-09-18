@@ -51,7 +51,11 @@ public class DriverLocationResource extends AbstractResource<DriverLocation, Dri
 			@ApiResponse(code = 500, message = "server error") })
 	public Response getUsers(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
-		return Response.ok(driverLocationService.findOne(id, getDomainType())).status(200).build();
+		if (id != null) {
+			return Response.ok(super.findOne(id)).status(200).build();
+		} else {
+			return Response.ok(super.findAll()).status(200).build();
+		}
 	}
 
 	@PUT
@@ -63,7 +67,7 @@ public class DriverLocationResource extends AbstractResource<DriverLocation, Dri
 	public Response createRegisteration(@ApiParam DriverLocation object) throws JsonProcessingException, IOException {
 		String id = UUID.randomUUID().toString();
 		object.setId("driverlocation:id:" + id);
-		driverLocationService.create(object, getDomainType());
+		create(object);
 		return Response.ok().header("id", "driverlocation:id:" + id).status(201).build();
 	}
 

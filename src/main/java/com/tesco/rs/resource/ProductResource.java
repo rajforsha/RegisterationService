@@ -47,9 +47,9 @@ public class ProductResource extends AbstractResource<Product, ProductDto> {
 	public Response getProducts(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
 		if (id != null) {
-			return Response.ok(productService.findOne(id, getDomainType())).status(200).build();
+			return Response.ok(findOne(id)).status(200).build();
 		} else {
-			return Response.ok(productService.findAll()).status(200).build();
+			return Response.ok(findAll()).status(200).build();
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ProductResource extends AbstractResource<Product, ProductDto> {
 	public Response crateProduct(@ApiParam Product object) throws JsonProcessingException, IOException {
 		String id = UUID.randomUUID().toString();
 		object.setId("product:id:" + id);
-		productService.create(object, getDomainType());
+		create(object);
 		return Response.ok().header("id", "product:id:" + id).status(201).build();
 	}
 

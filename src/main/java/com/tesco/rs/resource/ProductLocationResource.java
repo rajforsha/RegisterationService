@@ -51,7 +51,11 @@ public class ProductLocationResource extends AbstractResource<ProductLocation, P
 			@ApiResponse(code = 500, message = "server error") })
 	public Response getUsers(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
-		return Response.ok(productLocationService.findOne(id, getDomainType())).status(200).build();
+		if (id != null) {
+			return Response.ok(findOne(id)).status(200).build();
+		} else {
+			return Response.ok(findAll()).status(200).build();
+		}
 	}
 
 	@PUT
@@ -63,7 +67,7 @@ public class ProductLocationResource extends AbstractResource<ProductLocation, P
 	public Response createRegisteration(@ApiParam ProductLocation object) throws JsonProcessingException, IOException {
 		String id = UUID.randomUUID().toString();
 		object.setId("productLocation:id:" + id);
-		productLocationService.create(object, getDomainType());
+		create(object);
 		return Response.ok().header("id", "productLocation:id:" + id).status(201).build();
 	}
 

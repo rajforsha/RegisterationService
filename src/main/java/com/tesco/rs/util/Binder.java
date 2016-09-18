@@ -31,7 +31,5 @@ public class Binder extends AbstractModule {
 		binder().bind(ProductService.class).to(ProductServiceImpl.class);
 		binder().bind(CustomerService.class).to(CustomerServiceImpl.class);
 		binder().bind(SuperHeroService.class).to(SuperHeroServiceImpl.class);
-
 	}
-
 }
