@@ -47,9 +47,9 @@ public class SuperHeroResource extends AbstractResource<SuperHero, SuperHeroDto>
 	public Response getSuperHeros(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
 		if (id != null) {
-			return Response.ok(superHeroService.findOne(id, getDomainType())).status(200).build();
+			return Response.ok(findOne(id)).status(200).build();
 		} else {
-			return Response.ok(superHeroService.findAll()).status(200).build();
+			return Response.ok(findAll()).status(200).build();
 		}
 	}
 
@@ -62,7 +62,7 @@ public class SuperHeroResource extends AbstractResource<SuperHero, SuperHeroDto>
 	public Response crateProduct(@ApiParam SuperHero object) throws JsonProcessingException, IOException {
 		String id = UUID.randomUUID().toString();
 		object.setId("super:hero:id:" + id);
-		superHeroService.create(object, getDomainType());
+		create(object);
 		return Response.ok().header("id", "super:hero:id:" + id).status(201).build();
 	}
 

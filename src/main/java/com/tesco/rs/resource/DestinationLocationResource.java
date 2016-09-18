@@ -56,7 +56,11 @@ public class DestinationLocationResource extends AbstractResource<DestinationLoc
 			@ApiResponse(code = 500, message = "server error") })
 	public Response getUsers(@QueryParam(value = "id") String id)
 			throws JsonParseException, JsonMappingException, IOException {
-		return Response.ok(destinationLocationService.findOne(id, getDomainType())).status(200).build();
+		if (id != null) {
+			return Response.ok(super.findOne(id)).status(200).build();
+		} else {
+			return Response.ok(super.findAll()).status(200).build();
+		}
 	}
 
 	@PUT
@@ -69,7 +73,7 @@ public class DestinationLocationResource extends AbstractResource<DestinationLoc
 			throws JsonProcessingException, IOException {
 		String id = UUID.randomUUID().toString();
 		object.setId("destinationlocation:" + id);
-		destinationLocationService.create(object, getDomainType());
+		super.create(object);
 		return Response.ok().header("id", "destinationlocation:" + id).status(201).build();
 	}
 
