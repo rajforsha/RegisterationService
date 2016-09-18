@@ -61,7 +61,7 @@ public abstract class AbstractGenricService implements GenericService {
 
 	public ResponseDto<Domain> findAll(Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
 		/*
-		 * gettting lookup document using id.
+		 * getting lookup document using id.
 		 */
 		Object obj = CouchbaseWrapper.getDocument(cls.toString());
 		LookupDomain lookup = (LookupDomain) mapper.readValue(String.valueOf(obj), LookupDomain.class);

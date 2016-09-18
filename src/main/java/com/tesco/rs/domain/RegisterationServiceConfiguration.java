@@ -11,24 +11,25 @@ import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
  */
 public class RegisterationServiceConfiguration extends Configuration {
 
-	@JsonProperty("couchbase")
-	public CouchbaseConfiguration config;
-
 	@JsonProperty("swagger")
 	public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
+	@JsonProperty("couchbase")
+	public CouchbaseConfiguration couchbaseConfig;
+
 	/**
-	 * @return the config
+	 * @return the couchbaseConfig
 	 */
-	public CouchbaseConfiguration getConfig() {
-		return config;
+	public CouchbaseConfiguration getCouchbaseConfig() {
+		return couchbaseConfig;
 	}
 
 	/**
-	 * @param config
-	 *            the config to set
+	 * @param couchbaseConfig
+	 *            the couchbaseConfig to set
 	 */
-	public void setConfig(CouchbaseConfiguration config) {
-		this.config = config;
+	public void setCouchbaseConfig(CouchbaseConfiguration couchbaseConfig) {
+		this.couchbaseConfig = couchbaseConfig;
 	}
+
 }
