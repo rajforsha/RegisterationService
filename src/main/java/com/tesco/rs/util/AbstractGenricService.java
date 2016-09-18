@@ -14,12 +14,13 @@ import com.tesco.rs.constant.Domain;
 import com.tesco.rs.couchbase.CouchbaseWrapper;
 import com.tesco.rs.domain.LookupDomain;
 import com.tesco.rs.dto.ResponseDto;
+import com.tesco.rs.service.GenericService;
 
 /**
  * @author shashi
  *
  */
-public abstract class AbstractGenricService {
+public abstract class AbstractGenricService implements GenericService {
 
 	private static ObjectMapper mapper = new ObjectMapper();
 
@@ -93,5 +94,4 @@ public abstract class AbstractGenricService {
 
 	public void afterDelete(String id) throws JsonParseException, JsonMappingException, IOException {
 	}
-
 }

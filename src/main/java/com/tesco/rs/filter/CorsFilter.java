@@ -30,7 +30,6 @@ public class CorsFilter implements javax.servlet.Filter {
 				"Origin, X-Requested-With, Content-Type, Accept, Authorization,X-Client-Id");
 		res.setHeader("DC", "WDC");
 		res.setHeader("Access-Control-Expose-Headers", "Location");
-		System.out.println("CorsFilter");
 		chain.doFilter(request, res);
 
 	}

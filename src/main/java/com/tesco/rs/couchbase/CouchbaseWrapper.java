@@ -16,14 +16,16 @@ public class CouchbaseWrapper {
 	public static Boolean createDocument(String id, String result) {
 		return CouchbaseResource.getClient().add(id, result) != null;
 	}
+
 	public static Boolean setDocument(String id, String result) {
 		return CouchbaseResource.getClient().set(id, result) != null;
 	}
 
-	public static Map<String, Object> getBulk(List<String> ids) throws JsonParseException, JsonMappingException, IOException {
+	public static Map<String, Object> getBulk(List<String> ids)
+			throws JsonParseException, JsonMappingException, IOException {
 		return CouchbaseResource.getClient().getBulk(ids);
 	}
-	
+
 	public static Object getDocument(String id) throws JsonParseException, JsonMappingException, IOException {
 		return CouchbaseResource.getClient().get(id);
 	}
