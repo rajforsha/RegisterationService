@@ -61,8 +61,10 @@ public class DriverLocationResource extends AbstractResource<DriverLocation, Dri
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response createRegisteration(@ApiParam DriverLocation object) throws JsonProcessingException, IOException {
-		object.setId("customer:id:" + UUID.randomUUID().toString());
-		return Response.ok(driverLocationService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("driverlocation:id:" + id);
+		driverLocationService.create(object, getDomainType());
+		return Response.ok().header("id", "driverlocation:id:" + id).status(201).build();
 	}
 
 }

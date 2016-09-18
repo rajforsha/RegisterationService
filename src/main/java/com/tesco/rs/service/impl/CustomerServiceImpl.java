@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private static String CUSTOMER_ROOT = "customer:root";
 
-	public ResponseDto<String> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public void create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
 		CouchbaseWrapper.createDocument(entity.getId(), result);
 		Object object = CouchbaseWrapper.getDocument(CUSTOMER_ROOT);
@@ -58,10 +58,6 @@ public class CustomerServiceImpl implements CustomerService {
 				logger.info("Customer Root Lookup Updated Status:" + lookupCreatedOutput1);
 			}
 		}
-
-		ResponseDto<String> resp = new ResponseDto<String>();
-		resp.setContent(Arrays.asList(entity.getId()));
-		return resp;
 	}
 
 	public ResponseDto<Customer> findOne(String id, Class<?> cls)

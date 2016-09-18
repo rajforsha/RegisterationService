@@ -68,7 +68,6 @@ public class Product implements Domain {
 		public void setLongitude(String longitude) {
 			this.longitude = longitude;
 		}
-
 	}
 
 	public String getId() {

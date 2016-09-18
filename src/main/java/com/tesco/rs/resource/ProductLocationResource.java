@@ -40,7 +40,7 @@ public class ProductLocationResource extends AbstractResource<ProductLocation, P
 
 	@Override
 	public GenericService getGenericService() {
-		return null;
+		return productLocationService;
 	}
 
 	@GET
@@ -61,8 +61,10 @@ public class ProductLocationResource extends AbstractResource<ProductLocation, P
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response createRegisteration(@ApiParam ProductLocation object) throws JsonProcessingException, IOException {
-		object.setId("productLocation:id:" + UUID.randomUUID().toString());
-		return Response.ok(productLocationService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("productLocation:id:" + id);
+		productLocationService.create(object, getDomainType());
+		return Response.ok().header("id", "productLocation:id:" + id).status(201).build();
 	}
 
 }

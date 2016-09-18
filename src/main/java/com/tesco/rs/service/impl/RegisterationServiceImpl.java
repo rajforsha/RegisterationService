@@ -26,12 +26,9 @@ public class RegisterationServiceImpl implements RegisterationService {
 		this.mapper = new ObjectMapper();
 	}
 
-	public ResponseDto<String> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public void create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
 		CouchbaseWrapper.createDocument(entity.getId(), result);
-		ResponseDto<String> rDto = new ResponseDto<String>();
-		rDto.setContent(Arrays.asList(entity.getId()));
-		return rDto;
 	}
 
 	public ResponseDto<Registeration> findOne(String id, Class<?> cls)

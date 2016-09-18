@@ -14,7 +14,7 @@ import com.tesco.rs.dto.ResponseDto;
  */
 public interface GenericService {
 
-	public ResponseDto<?> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
+	public void create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException;
 
 	public ResponseDto<?> findOne(String id, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 

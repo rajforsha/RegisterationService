@@ -60,8 +60,10 @@ public class SuperHeroResource extends AbstractResource<SuperHero, SuperHeroDto>
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response crateProduct(@ApiParam SuperHero object) throws JsonProcessingException, IOException {
-		object.setId("super:hero:id:" + UUID.randomUUID().toString());
-		return Response.ok(superHeroService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("super:hero:id:" + id);
+		superHeroService.create(object, getDomainType());
+		return Response.ok().header("id", "super:hero:id:" + id).status(201).build();
 	}
 
 	@Override

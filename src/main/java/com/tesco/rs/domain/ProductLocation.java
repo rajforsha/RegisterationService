@@ -11,7 +11,7 @@ public class ProductLocation implements Domain {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5865246207127523633L;
+	private static final long serialVersionUID = 8203044947132762996L;
 
 	private String id;
 	private String productName;
@@ -78,10 +78,11 @@ public class ProductLocation implements Domain {
 	 */
 	@Override
 	public String toString() {
-		return "ProductLocation [productName=" + productName + ", longitude=" + longitude + ", latitude=" + latitude
-				+ "]";
+		return "ProductLocation [id=" + id + ", productName=" + productName + ", longitude=" + longitude + ", latitude="
+				+ latitude + "]";
 	}
 
+	@Override
 	public String getId() {
 		// TODO Auto-generated method stub
 		return id;

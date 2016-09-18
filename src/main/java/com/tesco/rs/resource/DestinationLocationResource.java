@@ -67,8 +67,10 @@ public class DestinationLocationResource extends AbstractResource<DestinationLoc
 			@ApiResponse(code = 500, message = "server error") })
 	public Response createRegisteration(@ApiParam DestinationLocation object)
 			throws JsonProcessingException, IOException {
-		object.setId("customer:id:" + UUID.randomUUID().toString());
-		return Response.ok(destinationLocationService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("destinationlocation:" + id);
+		destinationLocationService.create(object, getDomainType());
+		return Response.ok().header("id", "destinationlocation:" + id).status(201).build();
 	}
 
 }
