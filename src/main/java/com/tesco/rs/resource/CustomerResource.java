@@ -1,3 +1,4 @@
+
 package com.tesco.rs.resource;
 
 import java.io.IOException;
@@ -60,8 +61,10 @@ public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response crateCustomer(@ApiParam Customer object) throws JsonProcessingException, IOException {
-		object.setId("customer:id:" + UUID.randomUUID().toString());
-		return Response.ok(customerService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("customer:id:" + id);
+		customerService.create(object, getDomainType());
+		return Response.ok().header("id", "customer:id:" + id).status(201).build();
 	}
 
 	@Override

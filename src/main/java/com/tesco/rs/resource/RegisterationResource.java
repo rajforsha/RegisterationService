@@ -56,8 +56,10 @@ public class RegisterationResource extends AbstractResource<Registeration, Regis
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response createRegisteration(@ApiParam Registeration object) throws JsonProcessingException, IOException {
-		object.setId("registerationId:" + UUID.randomUUID().toString());
-		return Response.ok(registerationService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("registerationId:" + id);
+		registerationService.create(object, getDomainType());
+		return Response.ok().header("id", "registerationId:" + id).status(201).build();
 	}
 
 	@Override

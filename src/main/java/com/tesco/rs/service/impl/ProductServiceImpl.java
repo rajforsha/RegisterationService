@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
 	private static String PRODUCT_ROOT = "product:root";
 
-	public ResponseDto<String> create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+	public void create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
 
 		CouchbaseWrapper.createDocument(entity.getId(),
 				mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity));
@@ -62,9 +62,6 @@ public class ProductServiceImpl implements ProductService {
 				logger.info("Product Root Lookup Updated Status:" + lookupCreatedOutput1);
 			}
 		}
-		ResponseDto<String> rDto = new ResponseDto<String>();
-		rDto.setContent(Arrays.asList(entity.getId()));
-		return rDto;
 	}
 
 	public ResponseDto<Product> findOne(String id, Class<?> cls)

@@ -60,8 +60,10 @@ public class ProductResource extends AbstractResource<Product, ProductDto> {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
 	public Response crateProduct(@ApiParam Product object) throws JsonProcessingException, IOException {
-		object.setId("product:id:" + UUID.randomUUID().toString());
-		return Response.ok(productService.create(object, getDomainType())).status(201).build();
+		String id = UUID.randomUUID().toString();
+		object.setId("product:id:" + id);
+		productService.create(object, getDomainType());
+		return Response.ok().header("id", "product:id:" + id).status(201).build();
 	}
 
 	@Override
