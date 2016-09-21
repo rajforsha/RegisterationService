@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -54,7 +55,7 @@ public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 		}
 	}
 
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get registeredUser by id")
@@ -65,6 +66,17 @@ public class CustomerResource extends AbstractResource<Customer, CustomerDto> {
 		object.setId("customer:id:" + id);
 		super.create(object);
 		return Response.ok().header("id", "customer:id:" + id).status(201).build();
+	}
+
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get registeredUser by id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+			@ApiResponse(code = 500, message = "server error") })
+	public Response updateCustomer(@ApiParam Customer object) throws JsonProcessingException, IOException {
+		super.update(object);
+		return Response.ok().header("id", "customer:id:" + object.getId()).status(200).build();
 	}
 
 	@Override

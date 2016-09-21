@@ -8,5 +8,4 @@ import com.tesco.rs.util.AbstractGenricService;
  *
  */
 public class CustomerServiceImpl extends AbstractGenricService implements CustomerService {
-
 }

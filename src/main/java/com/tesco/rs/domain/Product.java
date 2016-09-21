@@ -8,10 +8,26 @@ public class Product implements Domain {
 	 */
 	private static final long serialVersionUID = -6445600476116946037L;
 	public String id;
+	public String imgUrl;
 	public String productName;
 	public String productDescription;
 	public String retailPrice;
 	public ProductLocation productLocation;
+
+	
+	/**
+	 * @return the imgUrl
+	 */
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	/**
+	 * @param imgUrl the imgUrl to set
+	 */
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public void setId(String id) {
 		this.id = id;

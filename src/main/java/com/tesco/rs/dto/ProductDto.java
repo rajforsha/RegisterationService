@@ -8,10 +8,26 @@ public class ProductDto implements Dto {
 	 */
 	private static final long serialVersionUID = -1598932649134853173L;
 	public String id;
+	public String imgUrl;
 	public String productName;
 	public String productDescription;
 	public String retailPrice;
 	public ProductLocation productLocation;
+
+	
+	/**
+	 * @return the imgUrl
+	 */
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	/**
+	 * @param imgUrl the imgUrl to set
+	 */
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public String getId() {
 		return id;
