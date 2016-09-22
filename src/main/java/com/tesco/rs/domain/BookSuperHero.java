@@ -85,5 +85,14 @@ public class BookSuperHero implements Domain {
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BookSuperHero [id=" + id + ", customerName=" + customerName + ", customerAddressLine1="
+				+ customerAddressLine1 + ", customerLatitude=" + customerLatitude + ", customerLongitude="
+				+ customerLongitude + ", productId=" + productId + "]";
+	}
 
 }

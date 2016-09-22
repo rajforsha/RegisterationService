@@ -90,4 +90,15 @@ public class Product implements Domain {
 		// TODO Auto-generated method stub
 		return id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", imgUrl=" + imgUrl + ", productName=" + productName + ", productDescription="
+				+ productDescription + ", retailPrice=" + retailPrice + ", productLocation=" + productLocation + "]";
+	}
+	
+	
 }

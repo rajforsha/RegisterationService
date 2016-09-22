@@ -140,6 +140,16 @@ public class BookingAcknowledgement implements Domain {
 	public void setSuperHeroCharge(String superHeroCharge) {
 		this.superHeroCharge = superHeroCharge;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BookingAcknowledgement [id=" + id + ", status=" + status + ", superHeroName=" + superHeroName
+				+ ", superHeroCurrentLat=" + superHeroCurrentLat + ", superHeroCurrentLong=" + superHeroCurrentLong
+				+ ", customerLat=" + customerLat + ", customerLong=" + customerLong + ", productLat=" + productLat
+				+ ", productLong=" + productLong + ", superHeroCharge=" + superHeroCharge + "]";
+	}
 
 	
 }

@@ -102,4 +102,14 @@ public class Customer implements Domain {
 		// TODO Auto-generated method stub
 		return id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", customerName=" + customerName + ", customerAddress=" + customerAddress + "]";
+	}
+	
+	
 }

@@ -26,6 +26,9 @@ import com.tesco.rs.service.GenericService;
 public abstract class AbstractGenricService implements GenericService {
 
 	private static ObjectMapper mapper = new ObjectMapper();
+	BeanUtils beauUtils = new BeanUtils();
+	
+
 
 	public static String getRootId(Class<?> cls) {
 		String rootid = "dummy";
@@ -103,8 +106,11 @@ public abstract class AbstractGenricService implements GenericService {
 	public void update(Domain enity, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
 		Object oldObject = CouchbaseWrapper.getDocument(enity.getId());
 		Domain oldEntity =(Domain) mapper.readValue(String.valueOf(oldObject), cls);
+		System.out.println("Before Entity-"+enity.toString());
+		System.out.println("Before OldEntity-"+oldEntity.toString());
+
 		try {
-			BeanUtils.copyProperties(oldEntity, enity);
+			beauUtils.copyProperties(oldEntity, enity);
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,6 +118,8 @@ public abstract class AbstractGenricService implements GenericService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Entity-"+enity.toString());
+		System.out.println("OldEntity-"+oldEntity.toString());
 		CouchbaseWrapper.setDocument(enity.getId(), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(oldEntity));
 	}
 
