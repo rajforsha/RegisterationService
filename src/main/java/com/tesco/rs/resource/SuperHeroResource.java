@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -53,17 +54,28 @@ public class SuperHeroResource extends AbstractResource<SuperHero, SuperHeroDto>
 		}
 	}
 
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get registeredUser by id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+			@ApiResponse(code = 500, message = "server error") })
+	public Response createSuperHero(@ApiParam SuperHero object) throws JsonProcessingException, IOException {
+		String id = UUID.randomUUID().toString();
+		object.setId("super:hero:id:" + id);
+		create(object);
+		return Response.ok().header("id", "super:hero:id:" + id).status(201).build();
+	}
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get registeredUser by id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "server error") })
-	public Response crateProduct(@ApiParam SuperHero object) throws JsonProcessingException, IOException {
-		String id = UUID.randomUUID().toString();
-		object.setId("super:hero:id:" + id);
-		create(object);
-		return Response.ok().header("id", "super:hero:id:" + id).status(201).build();
+	public Response updateSuperHero(@ApiParam SuperHero object) throws JsonProcessingException, IOException {
+		update(object);
+		return Response.ok().header("id", "super:hero:id:" + object.getId()).status(200).build();
 	}
 
 	@Override

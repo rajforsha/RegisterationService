@@ -1,6 +1,7 @@
 package com.tesco.rs.util;
 
 import com.google.inject.AbstractModule;
+import com.tesco.rs.service.BookSuperHeroService;
 import com.tesco.rs.service.CustomerService;
 import com.tesco.rs.service.DestinationLocationService;
 import com.tesco.rs.service.DriverLocationService;
@@ -8,6 +9,7 @@ import com.tesco.rs.service.ProductLocationService;
 import com.tesco.rs.service.ProductService;
 import com.tesco.rs.service.RegisterationService;
 import com.tesco.rs.service.SuperHeroService;
+import com.tesco.rs.service.impl.BookSuperHeroServiceImpl;
 import com.tesco.rs.service.impl.CustomerServiceImpl;
 import com.tesco.rs.service.impl.DestinationLocationServiceImpl;
 import com.tesco.rs.service.impl.DriverLocationServiceImpl;
@@ -31,5 +33,6 @@ public class Binder extends AbstractModule {
 		binder().bind(ProductService.class).to(ProductServiceImpl.class);
 		binder().bind(CustomerService.class).to(CustomerServiceImpl.class);
 		binder().bind(SuperHeroService.class).to(SuperHeroServiceImpl.class);
+		binder().bind(BookSuperHeroService.class).to(BookSuperHeroServiceImpl.class);
 	}
 }

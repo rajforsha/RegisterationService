@@ -1,6 +1,6 @@
 couchbase:
     node: 
-    - http://127.0.0.1:8091/pools
+    - http://localhost:8091/pools
     bucket: default
     password: Tesco@2016
 

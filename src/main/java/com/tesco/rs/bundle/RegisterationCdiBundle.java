@@ -11,6 +11,7 @@ import com.tesco.rs.domain.CouchbaseConfiguration;
 import com.tesco.rs.domain.RegisterationServiceConfiguration;
 import com.tesco.rs.filter.CorsFilter;
 import com.tesco.rs.healthcheck.CouchbaseHealthCheckUp;
+import com.tesco.rs.resource.BookSuperHeroResource;
 import com.tesco.rs.resource.CustomerResource;
 import com.tesco.rs.resource.DestinationLocationResource;
 import com.tesco.rs.resource.DriverLocationResource;
@@ -48,6 +49,10 @@ public class RegisterationCdiBundle<T extends Configuration> implements Configur
 		environment.jersey().register(customerResource);
 		SuperHeroResource superHeroResource = injector.getInstance(SuperHeroResource.class);
 		environment.jersey().register(superHeroResource);
+		BookSuperHeroResource bookSuperHeroResource = injector.getInstance(BookSuperHeroResource.class);
+		environment.jersey().register(bookSuperHeroResource);
+
+		
 		CouchbaseHealthCheckUp args = new CouchbaseHealthCheckUp();
 		environment.healthChecks().register("", args);
 		CorsFilter corsFilter = new CorsFilter();
