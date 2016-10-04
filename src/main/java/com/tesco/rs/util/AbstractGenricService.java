@@ -17,18 +17,15 @@ import com.tesco.rs.constant.Domain;
 import com.tesco.rs.couchbase.CouchbaseWrapper;
 import com.tesco.rs.domain.LookupDomain;
 import com.tesco.rs.dto.ResponseDto;
-import com.tesco.rs.service.GenericService;
 
 /**
  * @author shashi
  *
  */
-public abstract class AbstractGenricService implements GenericService {
+public abstract class AbstractGenricService implements Adviser {
 
 	private static ObjectMapper mapper = new ObjectMapper();
 	BeanUtils beauUtils = new BeanUtils();
-	
-
 
 	public static String getRootId(Class<?> cls) {
 		String rootid = "dummy";
@@ -43,6 +40,7 @@ public abstract class AbstractGenricService implements GenericService {
 	}
 
 	public void create(Domain entity, Class<?> cls) throws JsonProcessingException, IOException {
+		beforeCreate();
 		String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entity);
 		CouchbaseWrapper.createDocument(entity.getId(), result);
 		if (!"dummy".equals(getRootId(cls))) {
@@ -69,6 +67,7 @@ public abstract class AbstractGenricService implements GenericService {
 				}
 			}
 		}
+		afterCreate();
 	}
 
 	public ResponseDto<Domain> findOne(String id, Class<?> cls)
@@ -103,11 +102,12 @@ public abstract class AbstractGenricService implements GenericService {
 		return resp;
 	}
 
+	@SuppressWarnings("static-access")
 	public void update(Domain enity, Class<?> cls) throws JsonParseException, JsonMappingException, IOException {
 		Object oldObject = CouchbaseWrapper.getDocument(enity.getId());
-		Domain oldEntity =(Domain) mapper.readValue(String.valueOf(oldObject), cls);
-		System.out.println("Before Entity-"+enity.toString());
-		System.out.println("Before OldEntity-"+oldEntity.toString());
+		Domain oldEntity = (Domain) mapper.readValue(String.valueOf(oldObject), cls);
+		System.out.println("Before Entity-" + enity.toString());
+		System.out.println("Before OldEntity-" + oldEntity.toString());
 
 		try {
 			beauUtils.copyProperties(oldEntity, enity);
@@ -118,18 +118,21 @@ public abstract class AbstractGenricService implements GenericService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Entity-"+enity.toString());
-		System.out.println("OldEntity-"+oldEntity.toString());
-		CouchbaseWrapper.setDocument(enity.getId(), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(oldEntity));
+		System.out.println("Entity-" + enity.toString());
+		System.out.println("OldEntity-" + oldEntity.toString());
+		CouchbaseWrapper.setDocument(enity.getId(),
+				mapper.writerWithDefaultPrettyPrinter().writeValueAsString(oldEntity));
 	}
 
 	public void delete(String id) throws JsonParseException, JsonMappingException, IOException {
 		// CouchbaseWrapper.deleteDocument(id);
 	}
 
-	public void afterCreate(Domain user) throws JsonParseException, JsonMappingException, IOException {
+	@Override
+	public void afterCreate() {
 	}
 
-	public void afterDelete(String id) throws JsonParseException, JsonMappingException, IOException {
+	@Override
+	public void beforeCreate() {
 	}
 }

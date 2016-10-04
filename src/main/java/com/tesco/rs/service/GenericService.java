@@ -23,8 +23,4 @@ public interface GenericService {
 	public void update(Domain enity, Class<?> cls) throws JsonParseException, JsonMappingException, IOException;
 
 	public void delete(String id) throws JsonParseException, JsonMappingException, IOException;
-
-	public abstract void afterCreate(Domain user) throws JsonParseException, JsonMappingException, IOException;
-
-	public abstract void afterDelete(String id) throws JsonParseException, JsonMappingException, IOException;
 }
